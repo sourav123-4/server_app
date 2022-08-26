@@ -1,29 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const orderSchema = new Schema({
-    amount:{
-        type:Number
+const orderSchema = new Schema(
+  {
+    amount: {
+      type: Number,
     },
-    orderDate:{
-        type:String
+    orderDate: {
+      type: String,
     },
-    alternativephone:{
-        type:Number
+    alternativephone: {
+      type: Number,
     },
-    trackingNo:{
-        type:String
+    trackingNo: {
+      type: String,
     },
-    count:{
-        type:Number
+    count: {
+      type: Number,
     },
-    shippingDate:{
-        type:String
+    shippingDate: {
+      type: String,
     },
-    paymentMethod:{
-        type:String
+    paymentMethod: {
+      type: String,
     },
-},{ timestamps : true })
+  },
+  { timestamps: true }
+);
 
-const Order = new mongoose.model('category', orderSchema);
+const Order = new mongoose.model("category", orderSchema);
 module.exports = Order;

@@ -1,65 +1,68 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    address:{
-        geolocation:{
-            lat:{
-                type:String,
-            },
-            long:{
-                type:String,
-            },
+const userSchema = new Schema(
+  {
+    address: {
+      geolocation: {
+        lat: {
+          type: String,
         },
-        state:{
-            type:String,
+        long: {
+          type: String,
         },
-        city:{
-            type:String,
-        },
-        street:{
-            type:String,
-        },
-        number:{
-            type:Number,
-        },
-        
-        zipcode:{
-            type:String,
-        }, 
-    },
-    country:{
-        type:String
-    },
-    email:{
-        type:String,
-        required:true,
-    },
-    registrationDate:{
-        type:String
-    },
-    username:{
-        type:String,
-        required: true,
-    },
-    password:{
-        type:String,
-        required:true,
-    },
-    name:{
-        firstname:{
-            type:String,
-            required: true,
-        },
-        lastname:{
-            type:String,
-            required: true,
-        }
-    },
-    phone:{
-        type:Number,
-    },
-},{ timestamps : true })
+      },
+      state: {
+        type: String,
+      },
+      city: {
+        type: String,
+      },
+      street: {
+        type: String,
+      },
+      number: {
+        type: Number,
+      },
 
-const User = new mongoose.model('user', userSchema);
+      zipcode: {
+        type: String,
+      },
+    },
+    country: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    registrationDate: {
+      type: String,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    name: {
+      firstname: {
+        type: String,
+        required: true,
+      },
+      lastname: {
+        type: String,
+        required: true,
+      },
+    },
+    phone: {
+      type: Number,
+    },
+  },
+  { timestamps: true }
+);
+
+const User = new mongoose.model("user", userSchema);
 module.exports = User;
