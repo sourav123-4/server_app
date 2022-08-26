@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../modals/product");
+const Category = require("../modals/category");
 
-router.get("/product",(req,res)=>{
-    Product.find().then((result)=>{
+router.get("/category",(req,res)=>{
+    Category.find().then((result)=>{
         console.log(result)
         res.send(result)
     }).catch((err)=>{

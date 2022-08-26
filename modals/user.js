@@ -11,6 +11,9 @@ const userSchema = new Schema({
                 type:String,
             },
         },
+        state:{
+            type:String,
+        },
         city:{
             type:String,
         },
@@ -23,16 +26,17 @@ const userSchema = new Schema({
         
         zipcode:{
             type:String,
-        },
-        
+        }, 
     },
-    id:{
-        type:Number,
-        required: true,
+    country:{
+        type:String
     },
     email:{
         type:String,
         required:true,
+    },
+    registrationDate:{
+        type:String
     },
     username:{
         type:String,

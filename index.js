@@ -17,6 +17,7 @@ mongoose.connect(dbURL,{
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.json())
 app.use(morgan('dev'));
 
 app.get('/',(req,res)=>{
@@ -33,6 +34,8 @@ app.get('/about-me',(req,res)=>{
 
 app.use(require('./Router/userRouter'));
 app.use(require('./Router/productRouter'));
+app.use(require('./Router/cartRouter'));
+app.use(require('./Router/categoryRouter'));
 
 app.get('/adduser',(req,res)=>{
     

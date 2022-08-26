@@ -2,20 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-    id:{
-        type:Number,
-        required: true,
-    },
     title:{
         type:String,
     },
     price:{
         type:String,
     },
-    description:{
-        type:String,
+    weight:{
+        type:String
     },
-    category:{
+    length:{
+        type:String
+    },
+    description:{
         type:String,
     },
     image:{
@@ -28,6 +27,15 @@ const productSchema = new Schema({
         count:{
             type:Number,
         }
+    },
+    stock:{
+        type:Number
+    },
+    entryDate:{
+        type:String
+    },
+    location:{
+        type:String
     }
 },{ timestamps : true })
 
