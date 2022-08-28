@@ -21,10 +21,6 @@ const userSchema = new Schema(
       street: {
         type: String,
       },
-      number: {
-        type: Number,
-      },
-
       zipcode: {
         type: String,
       },

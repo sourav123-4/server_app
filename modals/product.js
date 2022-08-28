@@ -3,11 +3,15 @@ const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
   {
+    categoryId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+    },
     title: {
       type: String,
     },
     price: {
-      type: String,
+      type: Number,
     },
     weight: {
       type: String,

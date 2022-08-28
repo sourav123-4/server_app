@@ -13,7 +13,7 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   () => {
-    app.listen(3000);
+    app.listen(8080);
     console.log("db connected");
   }
 );
@@ -37,6 +37,7 @@ app.get("/about-me", (req, res) => {
 
 app.use(require("./Router/userRouter"));
 app.use(require("./Router/productRouter"));
+app.use(require("./Router/orderRouter"));
 app.use(require("./Router/cartRouter"));
 app.use(require("./Router/categoryRouter"));
 

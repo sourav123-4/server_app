@@ -12,12 +12,16 @@ router.post("/addorder", async (req, res) => {
     count,
     shippingDate,
     paymentMethod,
+    productId,
+    userId,
   } = req.body;
   Order.findOne({ trackingNo: trackingNo }, (err, order) => {
     if (order) {
       res.send("order already registered");
     } else {
       const order1 = new Order({
+        productId,
+        userId,
         amount,
         orderDate,
         alternativephone,
