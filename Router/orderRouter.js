@@ -46,7 +46,8 @@ router.get("/order", (req, res) => {
   Order.find()
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.status(200).json(result);
+      // res.json(result);
     })
     .catch((err) => {
       console.log(err);

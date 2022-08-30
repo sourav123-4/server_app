@@ -55,4 +55,84 @@ router.get("/product", (req, res) => {
     });
 });
 
+router.get("/monthlyorder", (req, res) => {
+  Product.aggregate([
+    {
+      $lookup: {
+        from: "orders",
+        localField: "_id",
+        foreignField: "productId",
+        as: "AllOrders",
+        pipeline: [
+          {
+            $project: {
+              title: 1,
+            },
+          },
+          {
+            $unwind: "$date",
+          },
+          {
+            $group: {
+              _id: {
+                month: {
+                  $month: "$date",
+                },
+                year: {
+                  $year: "$date",
+                },
+              },
+              allorders: {
+                $addToSet: {
+                  tracking_no: "$trackingNo",
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+    // {
+    //   $project: {
+    //     AllOrders: 1,
+    //     name: 1,
+    //   },
+    // },
+  ])
+    .then((result) => {
+      console.log(result);
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/countproduct", (req, res) => {
+  Product.aggregate([
+    {
+      $lookup: {
+        from: "orders",
+        localField: "_id",
+        foreignField: "productId",
+        as: "AllOrders",
+        pipeline: [{ $group: { _id: "$productId", count: { $sum: 1 } } }],
+      },
+    },
+    // {
+    //   $project: {
+    //     AllOrders: 1,
+    //     name: 1,
+    //   },
+    // },
+  ])
+    .then((result) => {
+      console.log(result);
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;

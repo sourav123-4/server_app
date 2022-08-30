@@ -49,5 +49,61 @@ router.get("/user", (req, res) => {
       console.log(err);
     });
 });
+// for highest order by count
+router.get("/highestorderuser", (req, res) => {
+  User.aggregate([
+    {
+      $lookup: {
+        from: "orders",
+        localField: "_id",
+        foreignField: "userId",
+        as: "AllOrders",
+        pipeline: [{ $group: { _id: "$userId", count: { $sum: 1 } } }],
+      },
+    },
+    {
+      $project: {
+        AllOrders: 1,
+        name: 1,
+      },
+    },
+  ])
+    .then((result) => {
+      console.log(result);
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/highestorderuserbyamount", (req, res) => {
+  User.aggregate([
+    {
+      $lookup: {
+        from: "orders",
+        localField: "_id",
+        foreignField: "userId",
+        as: "AllOrders",
+        pipeline: [
+          { $group: { _id: "$userId", TotalAmount: { $sum: "$amount" } } },
+        ],
+      },
+    },
+    // {
+    //   $project: {
+    //     AllOrders: 1,
+    //     name: 1,
+    //   },
+    // },
+  ])
+    .then((result) => {
+      console.log(result);
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
