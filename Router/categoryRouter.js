@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Category = require("../modals/category");
+const Category = require("../modals/Category");
 
 router.post("/addcategory", async (req, res) => {
   console.log("category", req.body);
@@ -20,10 +20,10 @@ router.post("/addcategory", async (req, res) => {
       category1
         .save()
         .then(() => {
-          res.send(category1);
+          res.json(category1);
         })
         .catch((e) => {
-          res.send(e);
+          res.json(e);
         });
     }
   });
@@ -33,10 +33,11 @@ router.get("/category", (req, res) => {
   Category.find()
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 

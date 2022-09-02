@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../modals/product");
+const Product = require("../modals/Product");
 
 router.post("/addproduct", async (req, res) => {
   console.log("product", req.body);
@@ -35,10 +35,10 @@ router.post("/addproduct", async (req, res) => {
       product1
         .save()
         .then(() => {
-          res.send(product1);
+          res.json(product1);
         })
         .catch((e) => {
-          res.send(e);
+          res.json(e);
         });
     }
   });
@@ -48,10 +48,11 @@ router.get("/product", (req, res) => {
   Product.find()
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 
@@ -92,19 +93,14 @@ router.get("/monthlyorder", (req, res) => {
         ],
       },
     },
-    // {
-    //   $project: {
-    //     AllOrders: 1,
-    //     name: 1,
-    //   },
-    // },
   ])
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 
@@ -119,20 +115,26 @@ router.get("/countproduct", (req, res) => {
         pipeline: [{ $group: { _id: "$productId", count: { $sum: 1 } } }],
       },
     },
-    // {
-    //   $project: {
-    //     AllOrders: 1,
-    //     name: 1,
-    //   },
-    // },
   ])
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 
+router.get("/totalproducts", (req, res) => {
+  Product.countDocuments()
+    .then((result) => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
 module.exports = router;

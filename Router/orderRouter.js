@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Order = require("../modals/order");
+const Order = require("../modals/Order");
 
 router.post("/addorder", async (req, res) => {
   console.log("order", req.body);
@@ -33,10 +33,10 @@ router.post("/addorder", async (req, res) => {
       order1
         .save()
         .then(() => {
-          res.send(order1);
+          res.json(order1);
         })
         .catch((e) => {
-          res.send(e);
+          res.json(e);
         });
     }
   });
@@ -47,10 +47,37 @@ router.get("/order", (req, res) => {
     .then((result) => {
       console.log(result);
       res.status(200).json(result);
-      // res.json(result);
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+router.get("/totalorderamount", (req, res) => {
+  Order.aggregate([
+    {
+      $group: { _id: null, TotalAmount: { $sum: "$amount" } },
+    },
+  ])
+    .then((result) => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+router.get("/totalorders", (req, res) => {
+  Order.countDocuments()
+    .then((result) => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
     });
 });
 

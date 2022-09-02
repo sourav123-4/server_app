@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../modals/user");
+const User = require("../modals/User");
 
 router.post("/adduser", async (req, res) => {
   console.log("user", req.body);
@@ -31,25 +31,27 @@ router.post("/adduser", async (req, res) => {
       user1
         .save()
         .then(() => {
-          res.send(user1);
+          res.json(user1);
         })
         .catch((e) => {
-          res.send(e);
+          res.json(e);
         });
     }
   });
 });
+
 router.get("/user", (req, res) => {
   User.find()
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
-// for highest order by count
+
 router.get("/highestorderuser", (req, res) => {
   User.aggregate([
     {
@@ -70,10 +72,11 @@ router.get("/highestorderuser", (req, res) => {
   ])
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 
@@ -90,20 +93,26 @@ router.get("/highestorderuserbyamount", (req, res) => {
         ],
       },
     },
-    // {
-    //   $project: {
-    //     AllOrders: 1,
-    //     name: 1,
-    //   },
-    // },
   ])
     .then((result) => {
       console.log(result);
-      res.send(result);
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 
+router.get("/totalusers", (req, res) => {
+  User.countDocuments()
+    .then((result) => {
+      console.log(result);
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
 module.exports = router;
